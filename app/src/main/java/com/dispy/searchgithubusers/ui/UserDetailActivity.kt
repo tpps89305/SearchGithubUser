@@ -12,9 +12,9 @@ class UserDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar!!.hide()
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         val intent = intent
 
@@ -22,5 +22,9 @@ class UserDetailActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         viewModel.getData(intent.getStringExtra("login")!!)
+
+        binding.btnClose.setOnClickListener {
+            finish()
+        }
     }
 }

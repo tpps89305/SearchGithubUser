@@ -1,5 +1,6 @@
 package com.dispy.searchgithubusers.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -34,6 +35,16 @@ class MainActivity : AppCompatActivity() {
             { data ->
                 userAdapter.removeItems()
                 userAdapter.swapItems(data)
+            }
+        )
+
+        userAdapter.setOnClickListener(
+            object : UserAdapter.OnClickListener {
+                override fun onItemClick(login: String) {
+                    val intent = Intent(applicationContext, UserDetailActivity::class.java)
+                    intent.putExtra("login", login)
+                    startActivity(intent)
+                }
             }
         )
 

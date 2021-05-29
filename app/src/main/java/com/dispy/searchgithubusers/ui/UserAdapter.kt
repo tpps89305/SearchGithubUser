@@ -10,6 +10,11 @@ import com.dispy.searchgithubusers.databinding.ItemUserBinding
 
 class UserAdapter(private val context: Context, private val users: ArrayList<User>): RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
+    private lateinit var listener: OnClickListener
+
+    fun setOnClickListener(listener: OnClickListener) {
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(context)
@@ -26,7 +31,9 @@ class UserAdapter(private val context: Context, private val users: ArrayList<Use
         if (holder is UserViewHolder) {
             val user: User = users[position]
             holder.bind(user)
-
+            holder.itemView.setOnClickListener {
+                listener.onItemClick(user.login)
+            }
         }
     }
 
@@ -46,5 +53,9 @@ class UserAdapter(private val context: Context, private val users: ArrayList<Use
             binding.user = user
             binding.executePendingBindings()
         }
+    }
+
+    interface OnClickListener {
+        fun onItemClick(login: String)
     }
 }

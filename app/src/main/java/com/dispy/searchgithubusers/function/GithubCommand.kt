@@ -56,4 +56,32 @@ class GithubCommand {
         })
     }
 
+    fun getUserDetail(login: String, listener: OnGithubUserDetailListener) {
+        val call: Call<User> = gitHubService.getUserDetail(login)
+        Log.d("Github users", call.request().toString())
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+
+                if (response.errorBody() != null) {
+                    if (response.errorBody()!!.string().contains("API rate limit exceeded")) {
+                        Log.e("Github user detail", "API rate limit exceeded")
+                        listener.onFailure("API rate limit exceeded")
+                    }
+                }
+
+                if (response.body() != null) {
+                    listener.onSuccess(response.body()!!)
+                    Log.i("Github user detail", "Success to get $login's detail!")
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.w("Github user detail", "Error when get $login's detail!")
+                Log.w("Github user detail", t.message!!)
+                listener.onFailure("Error when get $login's detail!")
+            }
+
+        })
+    }
+
 }

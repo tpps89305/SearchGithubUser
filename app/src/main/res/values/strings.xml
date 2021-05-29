@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">SearchGithubUsers</string>
+    <string name="description_github_user_avatar">GitHub User Avatar</string>
+    <string name="description_person_icon">Person Icon</string>
+    <string name="description_location_icon">Location Icon</string>
+    <string name="description_link_icon">Link Icon</string>
+    <string name="hint_enter_keyword">Enter keyword to search user(s)</string>
 </resources>

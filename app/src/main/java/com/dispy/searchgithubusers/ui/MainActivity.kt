@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dispy.searchgithubusers.databinding.ActivityMainBinding
+import com.dispy.searchgithubusers.function.GithubCommandListener
 import com.dispy.searchgithubusers.viewmodel.SearchUserViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), GithubCommandListener {
 
     private lateinit var binding: ActivityMainBinding
     private val userAdapter: UserAdapter = UserAdapter(this, ArrayList())
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = userAdapter
 
         searchUserViewModel = SearchUserViewModel()
+        searchUserViewModel.setGithubCommandListener(this)
         binding.viewModel = searchUserViewModel
         searchUserViewModel.getUsers().observe(this,
             { data ->
@@ -57,5 +60,9 @@ class MainActivity : AppCompatActivity() {
             }
         )
 
+    }
+
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
     }
 }

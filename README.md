@@ -1,4 +1,5 @@
 # Show GitHub All User App
+![Demo](./readme/SearchGithubUsers.jpg)
 An Android App which can search user(s) by keyword, and show user's detail.
 
 ## Overview
